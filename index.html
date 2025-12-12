@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeneLens - Bioinformatics Analysis Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">GeneLens</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="algorithms.html" class="nav-link">Algorithms</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with DNA Animation -->
+    <section class="hero-section">
+        <canvas id="dnaCanvas"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Advanced Genomic Sequence Analysis</h1>
+            <p class="hero-subtitle">
+                Powerful bioinformatics tools for sequence alignment, pattern matching, 
+                and genome assembly with state-of-the-art algorithms
+            </p>
+            <div class="hero-buttons">
+                <a href="algorithms.html" class="cta-button secondary">Explore Algorithms</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose GeneLens?</h2>
+            <p class="section-subtitle">
+                Comprehensive suite of bioinformatics algorithms designed for accuracy and efficiency
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast Processing</h3>
+                    <p>
+                        Optimized algorithms ensure rapid analysis of large genomic datasets 
+                        with minimal computational overhead
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Accurate Results</h3>
+                    <p>
+                        Proven algorithms including dynamic programming and graph-based methods 
+                        deliver precise sequence analysis
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔬</div>
+                    <h3>Multiple Algorithms</h3>
+                    <p>
+                        14 different algorithms covering alignment, pattern matching, 
+                        distance calculation, and genome assembly
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Guide -->
+    <section class="guide-section">
+        <div class="container">
+            <h2 class="section-title">Get Started in Three Steps</h2>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Upload Your Data</h3>
+                    <p>
+                        Upload your FASTA format sequence files through our 
+                        secure file upload interface
+                    </p>
+                </div>
+
+                <div class="step-arrow">→</div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Select Algorithm</h3>
+                    <p>
+                        Choose from 14 specialized algorithms based on your 
+                        analysis requirements
+                    </p>
+                </div>
+
+                <div class="step-arrow">→</div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>View Results</h3>
+                    <p>
+                        Receive comprehensive analysis results with detailed 
+                        visualizations and metrics
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+    <div class="container">
+        <p>GeneLens Bioinformatics Platform</p>
+        <p class="footer-subtitle">Advanced Sequence Analysis Tools</p>
+    </div>
+</footer>
+
+<!-- DNA Animation Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const canvas = document.getElementById('dnaCanvas');
+
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const dnaConfig = {
+            numPoints: 40,
+            amplitude: 80,
+            waveSpeed: 0.01,
+            connectionInterval: 3,
+            strandOpacity: 0.25,
+            connectionOpacity: 0.15,
+            strandColor: 'rgba(100, 180, 255, ',
+            connectionColor: 'rgba(80, 150, 220, ',
+            lineWidth: 2,
+            connectionLineWidth: 1
+        };
+
+        let time = 0;
+        let points = [];
+
+        function initPoints() {
+            points = [];
+            const spacing = canvas.width / (dnaConfig.numPoints - 1);
+            for (let i = 0; i < dnaConfig.numPoints; i++) {
+                points.push({ x: i * spacing, offset: (i / dnaConfig.numPoints) * Math.PI * 2 });
+            }
+        }
+
+        initPoints();
+
+        function getStrandY(point, isTopStrand) {
+            const baseY = canvas.height / 2;
+            const wave = Math.sin(time + point.offset) * dnaConfig.amplitude;
+            return baseY + (isTopStrand ? wave : -wave);
+        }
+
+        function drawStrands() {
+            ctx.strokeStyle = dnaConfig.strandColor + dnaConfig.strandOpacity + ')';
+            ctx.lineWidth = dnaConfig.lineWidth;
+            ctx.beginPath();
+            points.forEach((point, i) => {
+                const x = point.x;
+                const y = getStrandY(point, true);
+                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+
+            ctx.beginPath();
+            points.forEach((point, i) => {
+                const x = point.x;
+                const y = getStrandY(point, false);
+                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+        }
+
+        function drawConnections() {
+            ctx.strokeStyle = dnaConfig.connectionColor + dnaConfig.connectionOpacity + ')';
+            ctx.lineWidth = dnaConfig.connectionLineWidth;
+            for (let i = 0; i < points.length; i += dnaConfig.connectionInterval) {
+                const x = points[i].x;
+                const y1 = getStrandY(points[i], true);
+                const y2 = getStrandY(points[i], false);
+                ctx.beginPath();
+                ctx.moveTo(x, y1);
+                ctx.lineTo(x, y2);
+                ctx.stroke();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawStrands();
+            drawConnections();
+            time += dnaConfig.waveSpeed;
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+        window.addEventListener('resize', initPoints);
+    }
+});
+</script>
+</body>
+</html>
+

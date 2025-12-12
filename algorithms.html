@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeneLens - Algorithms</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <span class="logo-text">GeneLens</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="algorithms.html" class="nav-link active">Algorithms</a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="algorithms-container page-container">
+    <h1 class="page-title">Algorithms</h1>
+    <p>Select any algorithm to analyze your DNA sequences. Each algorithm may require different inputs.</p>
+
+    <!-- DNA Operations -->
+    <div class="algorithm-category">
+        <h2 class="category-title">DNA Operations</h2>
+        <div class="algorithm-detail-card" onclick="goToAnalysis('dna')">
+            <div class="algorithm-header">
+                <h3>GC Percentage / Reverse / Complement / Reverse Complement / Translation</h3>
+                <span class="complexity-badge">O(n)</span>
+            </div>
+            <p class="algorithm-description">
+                Perform basic DNA sequence operations such as GC content calculation, strand reversal, complement, reverse complement, and translation to amino acids.
+            </p>
+            <div class="algorithm-applications">
+                <strong>Applications:</strong> Useful for sequence preprocessing and basic bioinformatics analysis.
+            </div>
+        </div>
+    </div>
+
+    <!-- Boyer-Moore -->
+    <div class="algorithm-category">
+        <h2 class="category-title">Pattern Matching</h2>
+        <div class="algorithm-detail-card" onclick="goToAnalysis('boyer-moore')">
+            <div class="algorithm-header">
+                <h3>Boyer-Moore (Bad Character & Good Suffix)</h3>
+                <span class="complexity-badge">O(n + m)</span>
+            </div>
+            <p class="algorithm-description">
+                Efficient pattern searching algorithm. Requires a pattern input and works on uploaded DNA sequences.
+            </p>
+            <div class="algorithm-applications">
+                <strong>Applications:</strong> Detect motifs, primers, and sequence patterns.
+            </div>
+        </div>
+    </div>
+
+    <!-- Suffix Array -->
+    <div class="algorithm-category">
+        <h2 class="category-title">Suffix Array</h2>
+        <div class="algorithm-detail-card" onclick="goToAnalysis('suffix')">
+            <div class="algorithm-header">
+                <h3>Suffix Array & Inverse</h3>
+                <span class="complexity-badge">O(n log n)</span>
+            </div>
+            <p class="algorithm-description">
+                Constructs suffix arrays and their inverse for string processing and fast searches.
+            </p>
+            <div class="algorithm-applications">
+                <strong>Applications:</strong> Genome indexing, pattern search optimization.
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlap Graph -->
+    <div class="algorithm-category">
+        <h2 class="category-title">Graph-Based Assembly</h2>
+        <div class="algorithm-detail-card" onclick="goToAnalysis('overlap')">
+            <div class="algorithm-header">
+                <h3>Overlap Graph</h3>
+                <span class="complexity-badge">O(n^2)</span>
+            </div>
+            <p class="algorithm-description">
+                Constructs overlap graphs to assist genome assembly. Upload sequences and optionally set minimum overlap length.
+            </p>
+            <div class="algorithm-applications">
+                <strong>Applications:</strong> Genome assembly, contig merging.
+            </div>
+        </div>
+    </div>
+
+    <!-- Approximate Matching -->
+    <div class="algorithm-category">
+        <h2 class="category-title">Approximate Matching</h2>
+        <div class="algorithm-detail-card" onclick="goToAnalysis('approximate')">
+            <div class="algorithm-header">
+                <h3>Hamming & Edit Distance (Dynamic Programming)</h3>
+                <span class="complexity-badge">O(n*m)</span>
+            </div>
+            <p class="algorithm-description">
+                Find approximate matches between sequences using Hamming distance or edit distance. Requires pattern and sequence input.
+            </p>
+            <div class="algorithm-applications">
+                <strong>Applications:</strong> SNP detection, approximate motif search, error-tolerant alignment.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function goToAnalysis(algorithm) {
+    window.location.href = `analysis.html?algorithm=${algorithm}`;
+}
+</script>
+</body>
+</html>
