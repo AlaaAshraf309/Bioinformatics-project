@@ -1,7 +1,5 @@
 # GeneLens — Advanced Genomic Sequence Analysis
 
-**Live Demo:** [View the Website](https://your-demo-link.com)
-
 ## Overview
 
 GeneLens is a web-based platform for advanced genomic sequence analysis. It provides a comprehensive set of algorithms for sequence alignment, pattern matching, distance calculations, and genome assembly. The platform is designed for accuracy, efficiency, and reproducibility when working with large-scale genomic datasets.
